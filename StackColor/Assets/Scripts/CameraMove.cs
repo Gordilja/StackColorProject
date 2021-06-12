@@ -6,40 +6,52 @@ public class CameraMove : MonoBehaviour
 {
     private Camera m_camera;
     public Transform target;
-    private Vector3 offset = new Vector3(4, 4, -5);
-    public bool nextlevel;
+    private Vector3 offset = new Vector3(7, 7, -12);
+    public bool nextobj;
 
     void Start()
     {
-        if (nextlevel)
-        {
-            m_camera = GetComponent<Camera>();
-            GetTargetByTag("Player");
-        }
-
+        nextobj = true;
+        m_camera = GetComponent<Camera>();
+        GetTargetByTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetTargetByTag("Player");
-        if (target)
+        if (nextobj == true)
         {
-            transform.position = target.transform.position + offset;
-        }
+            GetTargetByTag("Player");
+            if (target)
+            {
+                transform.position = target.transform.position + offset;
+            }
 
-        if (target == null)
-            return;
+            if (target == null)
+                return;
+        }
+        else if (nextobj == false) 
+        {
+            GetTargetByTag("Parent");
+            if (target)
+            {
+                transform.position = target.transform.position + offset;
+            }
+
+            if (target == null)
+                return;
+        }
+      
     }
 
     /// Changes the target.
-    void ChangeTarget(Transform _target)
+    public void ChangeTarget(Transform _target)
     {
         target = _target;
     }
 
     /// Gets the target by tag.
-    void GetTargetByTag(string _tag)
+    public void GetTargetByTag(string _tag)
     {
         GameObject obj = GameObject.FindWithTag(_tag);
         if (obj)
