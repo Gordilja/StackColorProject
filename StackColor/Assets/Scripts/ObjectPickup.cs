@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ObjectPickup : MonoBehaviour
 {
-    public int value;
     public Color colorPick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,9 +13,8 @@ public class ObjectPickup : MonoBehaviour
         ren.material.SetColor("_Color", colorPick);
     }
 
-    // Update is called once per frame
-    void Update()
+    public Color GetColor() 
     {
-        
+        return colorPick;
     }
 }
